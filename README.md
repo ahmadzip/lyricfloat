@@ -26,7 +26,7 @@ A minimal Spicetify extension that shows your Spotify lyrics in a floating windo
 
 ## Setup
 
-1. Download the built extension file `lyricfloat.js` from the `dist/` directory.
+1. Download the built extension file from [`dist/lyricfloat.js`](https://github.com/ahmadzip/lyricfloat/blob/main/dist/lyricfloat.js) (click the **Download raw file** button at the top right of the code block).
 2. Copy the file into your Spicetify `Extensions` folder:
    - **Windows:** `%appdata%\\spicetify\\Extensions\\`
    - **Mac/Linux:** `~/.config/spicetify/Extensions/`
