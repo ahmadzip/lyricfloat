@@ -1,0 +1,20 @@
+{
+  "name": "lyricfloat",
+  "version": "0.1.0",
+  "description": "Minimal and fully customizable floating lyrics player for Spicetify",
+  "author": "ahmadzip",
+  "private": true,
+  "scripts": {
+    "build": "spicetify-creator",
+    "build-local": "spicetify-creator --out=dist --minify",
+    "watch": "spicetify-creator --watch"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "spicetify-creator": "^1.0.17"
+  }
+}
