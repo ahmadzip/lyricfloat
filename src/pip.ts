@@ -59,6 +59,20 @@ function setupEvents(doc: Document): void {
     Spicetify.Player.toggleHeart();
     setTimeout(() => updatePlayerControls(doc), 300);
   });
+  doc.getElementById("pip-mute")?.addEventListener("click", () => {
+    Spicetify.Player.toggleMute();
+    setTimeout(() => updateVolumeControls(doc), 100);
+  });
+  const volumeSlider = doc.getElementById("pip-volume-slider") as HTMLInputElement | null;
+  if (volumeSlider) {
+    volumeSlider.value = String(Math.round(Spicetify.Player.getVolume() * 100));
+    volumeSlider.addEventListener("input", (e: Event) => {
+      const val = Number((e.target as HTMLInputElement).value) / 100;
+      Spicetify.Player.setVolume(val);
+      updateVolumeIcon(doc, val);
+      updateSliderFill(doc, val * 100);
+    });
+  }
   doc.getElementById("pip-lyrics-list")?.addEventListener("click", (e: Event) => {
     const line = (e.target as HTMLElement).closest(".pip-lyric-line") as HTMLElement | null;
     if (!line) return;
@@ -68,8 +82,34 @@ function setupEvents(doc: Document): void {
   setupDrag(doc);
 }
 
+function getVolumeIconName(vol: number): string {
+  if (Spicetify.Player.getMute() || vol <= 0) return "volume-off";
+  if (vol < 0.33) return "volume-one-wave";
+  if (vol < 0.66) return "volume-two-wave";
+  return "volume";
+}
 
+function updateVolumeIcon(doc: Document, vol: number): void {
+  const muteBtn = doc.getElementById("pip-mute");
+  if (muteBtn) muteBtn.innerHTML = icon(getVolumeIconName(vol), 14);
+}
 
+function updateSliderFill(doc: Document, pct: number): void {
+  const slider = doc.getElementById("pip-volume-slider") as HTMLInputElement | null;
+  if (slider) slider.style.setProperty("--pip-vol-pct", pct + "%");
+}
+
+export function updateVolumeControls(doc: Document): void {
+  const vol = Spicetify.Player.getVolume();
+  const muted = Spicetify.Player.getMute();
+  updateVolumeIcon(doc, muted ? 0 : vol);
+  const slider = doc.getElementById("pip-volume-slider") as HTMLInputElement | null;
+  if (slider) {
+    const display = muted ? 0 : Math.round(vol * 100);
+    slider.value = String(display);
+    updateSliderFill(doc, display);
+  }
+}
 
 function getHTML(): string {
   return `
@@ -95,6 +135,10 @@ function getHTML(): string {
         <button id="pip-play" title="Play/Pause">${icon("play", 18)}</button>
         <button id="pip-next" title="Next">${icon("skip-forward", 16)}</button>
         <button id="pip-heart" title="Like">${icon("heart", 14)}</button>
+      </div>
+      <div id="pip-volume-row">
+        <button id="pip-mute" title="Mute">${icon(getVolumeIconName(Spicetify.Player.getVolume()), 14)}</button>
+        <input id="pip-volume-slider" type="range" min="0" max="100" value="${Math.round(Spicetify.Player.getVolume() * 100)}" style="--pip-vol-pct:${Math.round(Spicetify.Player.getVolume() * 100)}%" />
       </div>
     </div>
     <div id="pip-lyrics-container">

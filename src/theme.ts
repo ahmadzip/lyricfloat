@@ -71,5 +71,15 @@ export function getStyles(): string {
     .pip-lyric-line.past{color:var(--spice-subtext,rgba(255,255,255,.35));opacity:.45}
     .pip-loading{display:flex;align-items:center;justify-content:center;height:100%;font-size:13px;color:var(--spice-misc,rgba(255,255,255,.3));animation:pulse 1.5s ease-in-out infinite}
     @keyframes pulse{0%,100%{opacity:.4}50%{opacity:1}}
+    #pip-volume-row{display:flex;align-items:center;gap:8px;padding:0 12px;max-height:0;overflow:hidden;opacity:0;transition:max-height .25s,opacity .2s,padding .25s}
+    #pip-header-wrap:hover #pip-volume-row{max-height:32px;padding:4px 12px 6px;opacity:1}
+    #pip-mute{background:none;border:none;color:var(--spice-subtext,rgba(255,255,255,.55));width:24px;height:24px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;border-radius:50%;transition:color .15s,background .15s}
+    #pip-mute:hover{color:var(--spice-text,#fff);background:var(--spice-highlight,rgba(255,255,255,.08))}
+    #pip-volume-slider{-webkit-appearance:none;appearance:none;flex:1;height:4px;border-radius:2px;outline:none;cursor:pointer;background:linear-gradient(to right,var(--spice-button-active,var(--spice-accent,#1db954)) var(--pip-vol-pct,50%),var(--spice-button-disabled,rgba(255,255,255,.1)) var(--pip-vol-pct,50%))}
+    #pip-volume-slider::-webkit-slider-thumb{-webkit-appearance:none;width:12px;height:12px;border-radius:50%;background:var(--spice-text,#fff);border:none;box-shadow:0 1px 3px rgba(0,0,0,.3);transition:transform .1s}
+    #pip-volume-slider::-webkit-slider-thumb:hover{transform:scale(1.25)}
+    #pip-volume-slider::-moz-range-thumb{width:12px;height:12px;border-radius:50%;background:var(--spice-text,#fff);border:none;box-shadow:0 1px 3px rgba(0,0,0,.3)}
+    #pip-volume-slider::-moz-range-track{height:4px;border-radius:2px;background:var(--spice-button-disabled,rgba(255,255,255,.1))}
+    #pip-volume-slider::-moz-range-progress{height:4px;border-radius:2px;background:var(--spice-button-active,var(--spice-accent,#1db954))}
   `;
 }

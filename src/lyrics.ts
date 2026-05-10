@@ -2,6 +2,7 @@ import type { LyricLine } from "./types/lyricfloat";
 import { getLyrics, getProgress } from "./spicetify";
 import { state, icon } from "./state";
 import { applyThemeVars } from "./theme";
+import { updateVolumeControls } from "./pip";
 
 let themeTick = 0;
 
@@ -105,6 +106,7 @@ export function startLyricsSync(doc: Document): void {
     renderLyrics(doc);
     updatePlayerControls(doc);
     updateProgressBar(doc);
+    updateVolumeControls(doc);
     themeTick++;
     if (themeTick % 20 === 0) applyThemeVars(doc);
   }, 250);
