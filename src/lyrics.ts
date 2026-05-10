@@ -4,8 +4,6 @@ import { state, icon } from "./state";
 import { applyThemeVars } from "./theme";
 import { updateVolumeControls } from "./pip";
 
-let themeTick = 0;
-
 export function renderLyrics(doc: Document): void {
   const list = doc.getElementById("pip-lyrics-list");
   const noLyrics = doc.getElementById("pip-no-lyrics");
@@ -101,14 +99,12 @@ export function updatePlayerControls(doc: Document): void {
 
 export function startLyricsSync(doc: Document): void {
   stopLyricsSync();
-  themeTick = 0;
   state.lyricsInterval = setInterval(() => {
     renderLyrics(doc);
     updatePlayerControls(doc);
     updateProgressBar(doc);
     updateVolumeControls(doc);
-    themeTick++;
-    if (themeTick % 20 === 0) applyThemeVars(doc);
+    applyThemeVars(doc);
   }, 250);
 }
 
